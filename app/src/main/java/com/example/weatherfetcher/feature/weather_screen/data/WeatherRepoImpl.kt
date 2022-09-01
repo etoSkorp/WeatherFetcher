@@ -6,4 +6,12 @@ class WeatherRepoImpl(private val weatherRemoteSource: WeatherRemoteSource) : We
         return weatherRemoteSource.getWeather().mainTemp.temperature
     }
 
+    override suspend fun getWindDeg(): String {
+        return weatherRemoteSource.getWeather().wind.windDeg
+    }
+
+    override suspend fun getWindSpeed(): String {
+        return weatherRemoteSource.getWeather().wind.windSpeed
+    }
+
 }
