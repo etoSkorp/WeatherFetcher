@@ -4,7 +4,6 @@ import com.example.weatherfetcher.feature.weather_screen.data.model.WeatherRemot
 
 class WeatherRemoteSource(private val api: WeatherApi) {
 
-    // TODO add query
     suspend fun getWeather(): WeatherRemoteModel {
         return api.getWeather(q = "Moscow")
     }

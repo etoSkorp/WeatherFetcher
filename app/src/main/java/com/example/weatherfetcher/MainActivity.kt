@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel: WeatherViewModel by viewModel()
     private val tvHello: TextView by lazy { findViewById(R.id.tvHello) }
+    private val tvWind: TextView by lazy { findViewById(R.id.tvWind) }
     private val fabGetTemp: FloatingActionButton by lazy { findViewById(R.id.fabGetTemp) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,5 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun render(viewState: ViewState) {
         tvHello.text = "${viewState.title} ${viewState.temperature}"
+        tvWind.text =
+            "${viewState.windDegInfo}${viewState.windDeg}\n${viewState.windSpeedInfo}${viewState.windSpeed}"
     }
 }
