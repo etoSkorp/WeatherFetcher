@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">WeatherFetcher</string>
+    <string name="app_name">Прогноз погоды</string>
+    <string-array name="cityName">
+        <item>Moscow</item>
+        <item>Omsk</item>
+        <item>Volgograd</item>
+        <item>Novosibirsk</item>
+        <item>Krasnodar</item>
+    </string-array>
 </resources>

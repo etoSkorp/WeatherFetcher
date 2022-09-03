@@ -1,7 +1,7 @@
 package com.example.weatherfetcher.feature.weather_screen.data
 
 interface WeatherRepo {
-    suspend fun getTemperature(): String
-    suspend fun getWindDeg(): String
-    suspend fun getWindSpeed(): String
+    suspend fun getTemperature(cityName: String): String
+    suspend fun getWindDeg(cityName: String): String
+    suspend fun getWindSpeed(cityName: String): String
 }
