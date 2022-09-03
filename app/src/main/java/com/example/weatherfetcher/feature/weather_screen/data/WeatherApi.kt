@@ -10,7 +10,7 @@ interface WeatherApi {
 
     @GET("weather")
     suspend fun getWeather(
-        @Query("q") q: String,
+        @Query("q") city: String,
         @Query("appid") apiKey: String = API_KEY,
         @Query("units") units: String = UNITS
     ): WeatherRemoteModel

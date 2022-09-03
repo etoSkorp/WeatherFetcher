@@ -6,16 +6,16 @@ import com.example.weatherfetcher.feature.weather_screen.WeatherInteractor
 
 class WeatherViewModel(val interactor: WeatherInteractor) : BaseViewModel<ViewState>() {
 
-    suspend fun getWeather(): String {
-        return interactor.getWeather()
+    suspend fun getWeather(previousState: ViewState): String {
+        return interactor.getWeather(previousState.cityName)
     }
 
-    suspend fun getWindDeg(): String {
-        return interactor.getWindDeg()
+    suspend fun getWindDeg(previousState: ViewState): String {
+        return interactor.getWindDeg(previousState.cityName)
     }
 
-    suspend fun getWindSpeed(): String {
-        return interactor.getWindSpeed()
+    suspend fun getWindSpeed(previousState: ViewState): String {
+        return interactor.getWindSpeed(previousState.cityName)
     }
 
     override fun initialViewState(): ViewState =
@@ -25,22 +25,29 @@ class WeatherViewModel(val interactor: WeatherInteractor) : BaseViewModel<ViewSt
             windDegInfo = "",
             windDeg = "",
             windSpeedInfo = "",
-            windSpeed = ""
+            windSpeed = "",
+            cityName = "Moscow"
         )
 
     override suspend fun reduce(event: Event, previousState: ViewState): ViewState? {
         when (event) {
             is UIEvent.OnButtonClicked -> {
-                val temperature = getWeather()
-                val windDeg = getWindDeg()
-                val windSpeed = getWindSpeed()
+                val temperature = getWeather(previousState)
+                val windDeg = getWindDeg(previousState)
+                val windSpeed = getWindSpeed(previousState)
                 return previousState.copy(
                     title = "Температура: ",
                     temperature = temperature,
                     windDeg = windDeg,
                     windDegInfo = "Направление ветра: ",
                     windSpeedInfo = "Скорость ветра: ",
-                    windSpeed = windSpeed
+                    windSpeed = windSpeed,
+                    cityName = previousState.cityName
+                )
+            }
+            is UIEvent.OnCitySelected -> {
+                return previousState.copy(
+                    cityName = event.cityName
                 )
             }
             else -> return null

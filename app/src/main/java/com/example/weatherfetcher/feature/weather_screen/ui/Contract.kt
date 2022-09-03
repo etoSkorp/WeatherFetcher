@@ -8,9 +8,11 @@ data class ViewState(
     val windSpeed: String,
     val windDeg: String,
     val windSpeedInfo: String,
-    val windDegInfo: String
+    val windDegInfo: String,
+    val cityName: String
 )
 
 sealed class UIEvent : Event {
     object OnButtonClicked : UIEvent()
+    data class OnCitySelected(val cityName: String) : UIEvent()
 }
