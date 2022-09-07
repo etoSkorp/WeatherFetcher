@@ -15,4 +15,5 @@ data class ViewState(
 sealed class UIEvent : Event {
     object OnButtonClicked : UIEvent()
     data class OnCitySelected(val cityName: String) : UIEvent()
+    object OnWindButtonClicked : UIEvent()
 }

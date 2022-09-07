@@ -7,4 +7,6 @@
         <item>Novosibirsk</item>
         <item>Krasnodar</item>
     </string-array>
+    <string name="weather">Погода</string>
+    <string name="windDeg">Направление ветра</string>
 </resources>
