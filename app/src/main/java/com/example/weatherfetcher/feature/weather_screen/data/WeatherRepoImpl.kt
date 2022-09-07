@@ -1,17 +1,10 @@
 package com.example.weatherfetcher.feature.weather_screen.data
 
+import com.example.weatherfetcher.feature.weather_screen.data.model.WeatherRemoteModel
+
 class WeatherRepoImpl(private val weatherRemoteSource: WeatherRemoteSource) : WeatherRepo {
 
-    override suspend fun getTemperature(cityName: String): String {
-        return weatherRemoteSource.getWeather(cityName).mainTemp.temperature
+    override suspend fun getWeather(cityName: String): WeatherRemoteModel {
+        return weatherRemoteSource.getWeather(cityName)
     }
-
-    override suspend fun getWindDeg(cityName: String): String {
-        return weatherRemoteSource.getWeather(cityName).wind.windDeg
-    }
-
-    override suspend fun getWindSpeed(cityName: String): String {
-        return weatherRemoteSource.getWeather(cityName).wind.windSpeed
-    }
-
 }
