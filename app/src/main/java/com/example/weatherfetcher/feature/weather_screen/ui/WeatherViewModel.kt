@@ -29,16 +29,20 @@ class WeatherViewModel(private val interactor: WeatherInteractor) : BaseViewMode
                 return previousState.copy(
                     title = "Температура: ",
                     temperature = temperature.mainTemp.temperature,
-                    windDeg = temperature.wind.windDeg,
-                    windDegInfo = "Направление ветра: ",
                     windSpeedInfo = "Скорость ветра: ",
                     windSpeed = temperature.wind.windSpeed,
-                    cityName = previousState.cityName
                 )
             }
             is UIEvent.OnCitySelected -> {
                 return previousState.copy(
                     cityName = event.cityName
+                )
+            }
+            is UIEvent.OnWindButtonClicked -> {
+                val temperature = getWeather(previousState)
+                return previousState.copy(
+                    windDegInfo = "Направление ветра в городе ${previousState.cityName}: ",
+                    windDeg = temperature.wind.windDeg
                 )
             }
             else -> return null
