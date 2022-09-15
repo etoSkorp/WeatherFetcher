@@ -10,8 +10,11 @@ import androidx.fragment.app.Fragment
 import com.example.weatherfetcher.feature.weather_screen.ui.UIEvent
 import com.example.weatherfetcher.feature.weather_screen.ui.ViewState
 import com.example.weatherfetcher.feature.weather_screen.ui.WeatherViewModel
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.lang.Math.abs
 
 class MainScreenFragment : Fragment(R.layout.fragment_main_screen) {
 
@@ -20,6 +23,12 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen) {
     private val tvWind: TextView by lazy { requireActivity().findViewById(R.id.tvWind) }
     private val fabGetTemp: FloatingActionButton by lazy { requireActivity().findViewById(R.id.fabGetTemp) }
     private val spinner: Spinner by lazy { requireActivity().findViewById(R.id.spinnerSelectCity) }
+    private val weatherAppBar: AppBarLayout by lazy { requireActivity().findViewById(R.id.weatherAppBar) }
+    private val collapsingToolbar: CollapsingToolbarLayout by lazy {
+        requireActivity().findViewById(
+            R.id.collapsingToolbar
+        )
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,6 +43,13 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen) {
         }
 
         viewModel.viewState.observe(viewLifecycleOwner, ::render)
+
+        weatherAppBar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            val percent = (
+                    abs(appBarLayout.totalScrollRange + verticalOffset).toFloat() / appBarLayout.totalScrollRange
+                    )
+            fabGetTemp.alpha = percent
+        })
 
         fabGetTemp.setOnClickListener {
             viewModel.processUIEvent(UIEvent.OnButtonClicked)
@@ -58,5 +74,6 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen) {
     private fun render(viewState: ViewState) {
         tvHello.text = "${viewState.title} ${viewState.temperature}"
         tvWind.text = "${viewState.windSpeedInfo}${viewState.windSpeed}"
+        collapsingToolbar.title = "${viewState.title} ${viewState.temperature}"
     }
 }

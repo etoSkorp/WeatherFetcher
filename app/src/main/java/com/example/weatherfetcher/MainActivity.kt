@@ -7,12 +7,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
-    private val bnvMenu: BottomNavigationView by lazy { findViewById(R.id.bnvMenu) }
+    private val bnvWeatherMenu: BottomNavigationView by lazy { findViewById(R.id.bnvWeatherMenu) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        bnvMenu.setOnItemSelectedListener {
+        bnvWeatherMenu.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.itemMain -> {
                     changeFragment(MainScreenFragment())
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-        bnvMenu.selectedItemId = R.id.itemMain
+        bnvWeatherMenu.selectedItemId = R.id.itemMain
     }
 
     private fun changeFragment(fragment: Fragment) {
